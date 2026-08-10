@@ -83,26 +83,26 @@ WSGI_APPLICATION = 'simpleblobwk4.wsgi.application'
 # https://docs.djangoproject.com/en/6.1/ref/settings/#databases
 
 # Uncomment for local database
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 # ---------------------------
 # Vercel simple blob database
 # ---------------------------
-# DATABASES = {
-#     "default": {
-#         "ENGINE": 'django.db.backends.postgresql',
-#         "NAME": os.getenv("PGDATABSE"),
-#         "USER": os.getenv("PGUSER"),
-#         "PASSWORD": os.getenv("PGPASSWORD"),
-#         "HOST": os.getenv("PGHOST"),
-#         "PORT": 5432,
-#     }
-# }
+DATABASES = {
+    "default": {
+        "ENGINE": 'django.db.backends.postgresql',
+        "NAME": os.getenv("PGDATABASE"),
+        "USER": os.getenv("PGUSER"),
+        "PASSWORD": os.getenv("PGPASSWORD"),
+        "HOST": os.getenv("PGHOST"),
+        "PORT": 5432,
+    }
+}
 
 
 # Password validation
