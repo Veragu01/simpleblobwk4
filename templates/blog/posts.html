@@ -8,7 +8,7 @@
         <h2>Create Post</h2>
         <form action="{% url 'post_create' %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            <p>Title: <input type="text" name="title" placeholder="Post Title"></p>
+            <p>Title: <input class="form-control" type="text" name="title" placeholder="Post Title"></p>
             <p>Header Image: <input type="file" name="header_image"></p>
             <p>Title tag: <input type="text" name="title_tag" placeholder="Post Title Tag"></p>
             <p>Author:

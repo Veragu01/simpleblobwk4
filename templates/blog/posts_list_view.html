@@ -1,0 +1,16 @@
+{% extends '../base.html' %}
+{% block title %}
+    Posts List View
+{% endblock %}
+{% block content %}
+    <h1>Posts List View</h1>
+    <p>
+        {% for post in object_list %}
+            <a href="{% url 'post_detail_view' post.pk %}">{{ post.title }}</a>
+            <a class="btn btn-primary" href="{% url 'post_update_view' post.pk %}">Update</a>
+            <a class="btn btn-danger" href="{% url 'post_delete_view' post.pk %}">delete</a>
+            <br>
+        {% endfor %}
+
+    </p>
+{% endblock %}
