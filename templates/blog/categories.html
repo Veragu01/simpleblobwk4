@@ -4,7 +4,34 @@
 {% endblock %}
 {% block content %}
     <h1>Categories</h1>
+    
+    <form action="{% url 'category_create' %}" method="post">
+        {% csrf_token %}
+        <input type="text" name="name" placeholder="Category name">
+        <button type="submit">Create</button>
+    </form>
+    
     {% for category in categories %}
-        <p>{{ category.name }}</p>
+        <p>
+            <a href="{% url 'category_detail' category.id %}">{{ category.name }}</a>
+        </p>
+
+        {% for post in category.post_set.all %}
+            <p>{{ post.title }}</p>
+            <p> Likes: {{ post.likes.count }}</p>
+            {% for comments in post.comments.all %}
+                <p>{{ comments.body }}</p>
+            {% endfor %}
+        {% endfor %}
+        <form action="{% url 'category_update' category.id %}" method="post">
+            {% csrf_token %}
+            <input type="text" name="name" value="{{ category.name }}">
+            <button type="submit">Update</button>
+        </form>
+        <form action="{% url 'category_delete'  %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="category_id" value="{{ category.id }}">
+            <button type="submit">Delete</button>
+        </form>
     {% endfor %}
 {% endblock %}

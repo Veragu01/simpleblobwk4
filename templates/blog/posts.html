@@ -1,0 +1,49 @@
+{% extends "../base.html" %}
+{%  block title %}
+    Posts
+{% endblock %}
+
+{% block content %}
+    <h1>Posts</h1>
+        <h2>Create Post</h2>
+        <form action="{% url 'post_create' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <p>Title: <input type="text" name="title" placeholder="Post Title"></p>
+            <p>Header Image: <input type="file" name="header_image"></p>
+            <p>Title tag: <input type="text" name="title_tag" placeholder="Post Title Tag"></p>
+            <p>Author:
+                <select name="author">
+                    {% for user in users %}
+                        <option value="{{ user.id }}">{{ user.username }}</option>
+                    {% endfor %}
+                </select>
+            </p>
+            <p>Body: <textarea name="body" placeholder="Post Body"></textarea></p>
+            <p>Snippet: <input type="text" name="snippet" placeholder="Post Snippet"></p>
+            <p>Category:
+                <select name="category">
+                    {% for category in categories %}
+                        <option value="{{ category.id }}">{{ category.name }}</option>
+                    {% endfor %}
+                </select></p>
+
+            <button type="submit">Create</button>
+        </form>
+    {% for post in posts.all %}
+        <h3>{{ post.title }}</h3>
+
+        <p>
+            <a href="{% url 'post_detail' post.id %}">{{ post.body }}</a>
+        </p>
+        <p> Category: {{ post.category }}</p>
+        <p> Likes: {{ post.likes.count }}</p>
+        {% for comments in post.comments.all %}
+            <p>{{ comments.body }}</p>
+        {% endfor %}
+    {% endfor %}
+    <form action="{% url 'post_create' %}" method="post">
+        {% csrf_token %}
+        <input type="text" name="body" placeholder="New Post">
+        <button type="submit">Create</button>
+    </form>
+{% endblock %}
